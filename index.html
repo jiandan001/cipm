@@ -86,7 +86,9 @@ img {
   } 
 })();
 
+var top_image_height = 385;
 var middle_image_height = 434;
+var bottom_image_height = 121;
 
 // Background image resize ratio.
 var p = 0;
@@ -119,22 +121,24 @@ $(function() {
 
     console.log("Resize ratio: " + p);
 
+    var top_image_resize_height = Math.ceil(top_image_height * p);
+    var middle_image_resize_height = Math.ceil(middle_image_height * p);
+    var bottom_image_resize_height = Math.ceil(bottom_image_height * p);
+
     //$(".wrap").width(Math.ceil(1920*p));
 
     //$(".t").attr("width", Math.ceil(1920*p));
-    $(".t").height(Math.ceil($(".t").attr("height")*p));			
-
-    var image_resize_height = Math.ceil(middle_image_height * p);
+    $(".t").height(top_image_resize_height);
 
     //$(".lm").width(Math.ceil($(".lm").width()*p));
-    $(".lm").height(image_resize_height);
+    $(".lm").height(middle_image_resize_height);
     //$(".cm").width(Math.ceil($(".cm").width()*p));
-    $(".cm").height(image_resize_height);
+    $(".cm").height(middle_image_resize_height);
     //$(".rm").width(Math.ceil($(".r").width()*p));
-    $(".rm").height(image_resize_height);
+    $(".rm").height(middle_image_resize_height);
     
     //$(".f").attr("width",  Math.ceil(1920*p));
-    $(".f").height(Math.ceil($(".f").attr("height")*p));
+    $(".f").height(bottom_image_resize_height);
 });
 
 $(window).resize(function() {
