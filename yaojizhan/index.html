@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/base.css"/>
+<style>
+body {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+img, a img {
+  border: 0;
+}
+</style>
+<script type="text/javascript">
+//预处理
+(function () {
+    var i, arr;
+
+    if (!window.console) {
+        window.console = {};
+    }
+
+    // union of Chrome, FF, IE, and Safari console methods
+    arr = [
+        "log", "info", "warn", "error", "debug", "trace", "dir", "group",
+        "groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
+        "dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
+    ];
+
+    // define undefined methods as noops to prevent errors
+    for (i = 0; i < arr.length; i++) {
+
+        if (!window.console[arr[i]]) {
+            window.console[arr[i]] = function () {};
+        }
+    }
+
+    try {
+        window.$ = jQuery;
+        console.log("替换完成 $");
+    } catch (e) {
+        console.log("替换失败");
+    }
+}());
+</script>
+</head>
+<body>
+<div id="container" class="main-area">
+  <div id="pic-show-area" class="img-container" >
+    <div class="mod-pic-show">
+      <img src="0.jpg" data-id="0" width="100%" usemap="#planetmap" style="display:block;">
+    </div>
+  </div>
+  <span class="img-prev" href="javascript:void(0);" target="_blank" hidefocus="true"  ondragstart="return false;"><span class="img-switch-btn"></span></span>
+  <span class="img-next" href="javascript:void(0);" target="_blank" hidefocus="true"  ondragstart="return false;"><span class="img-switch-btn"></span></span>
+</div>
+<div style="position:absolute;top:94%;left:1%;font-size:15px;font-family:'宋体';font-weight:normal;color:#FFFFFF;"><p>京ICP备14058628号</p></div>
+<map name="planetmap" id="map">
+<!--
+    <area shape="poly" coords="155,270,230,170,380,190,395,270,360,355,180,355" href="#" alt="Sun">
+    <area shape="poly" coords="15,485,80,385,303,370,330,457,290,556,50,555" href="#" alt="Venus">
+    <area shape="rect" coords="605,195,785,295" href="#" alt="Mercury">
+    <area shape="rect" coords="590,305,790,420" href="#" alt="Mercury">
+    <area shape="rect" coords="580,440,820,590" href="#" alt="Mercury">
+    <area shape="poly" coords="870,300,930,490,1340,490,1220,300,1060,250" href="#" alt="Sun">
+-->
+</map>
+<script type="text/javascript" src="lib/jquery.js" ></script>
+<script type="text/javascript" src="data.js" ></script>
+<script type="text/javascript">
+
+// ???
+var pre;
+
+$(function() {
+
+  $(".img-prev").click(function() {
+    var img = $(".mod-pic-show img");
+    var current_id, next_id;
+
+    current_id = parseInt(img.data("id"));
+    console.log("Current image id is: " + current_id);
+
+    next_id = current_id - 1;
+    console.log("Next image id is: " + next_id);
+
+    img.trigger("imagechange", [next_id]);
+  });
+
+  $(".img-next").click(function() {
+    var img = $(".mod-pic-show img");
+    var current_id, next_id;
+
+    current_id = parseInt(img.data("id"));
+    console.log("Current image id is: " + current_id);
+
+    next_id = current_id + 1;
+    console.log("Next image id is: " + next_id);
+
+    img.trigger("imagechange", [next_id]);
+  });
+
+  $(".mod-pic-show img").bind("imagechange", function (event, id) {
+    console.log("[Event] Event name: imagechange");
+    console.log("[Event] Change to image id: " + id);
+    $(this).data("id", id);
+    $(this).fadeOut(250).attr("src", id+".jpg").fadeIn(250);
+    load_map_data( DATA[id] );
+    if ( id == 0 )
+    {
+      $(".img-prev").hide();
+      $(".img-next").show();
+    }
+    else if ( id == 2 )
+    {
+      $(".img-prev").show();
+      $(".img-next").hide();
+    }
+    else
+    {
+      $(".img-prev").show();
+      $(".img-next").show();
+    }
+  });
+
+});
+
+$(function(){
+  var width = $(document).width();
+		/*
+        var height = window.innerHeight;
+        var prew = width/1366;
+        var preh = height/666;
+		var pre;
+		if(prew > preh){
+			pre=preh;
+		}else{
+			pre=prew;
+		}
+		*/
+	pre = width/1366;
+  console.log(width);
+
+  console.log( "Load first item of map array." );
+  $(".mod-pic-show img").attr("src", "0.jpg").trigger("imagechange", [0]);
+  
+  // Set vertical align center.
+  var t = setTimeout(function() {
+    var window_height = $(document).height();
+    var container_height = $("#container").height();
+    var container_margin_top = ( window_height - container_height ) / 2;
+    $("#container").css("margin-top", container_margin_top + "px");
+  }, 500);
+});
+
+// Load new map data
+function load_map_data ( a )
+{
+  var out = " ";
+  for(var i = 0 ; i < a.length; i++){
+      if(a[i]["map"].length > 4)
+          out += '<area shape="poly" coords="';
+      else
+          out += '<area shape="rect" coords="';       
+      for(var j = 0 ; j < a[i]["map"].length;){
+          var num1 = a[i]["map"][j]*pre; 
+          num1 = Math.ceil(num1);
+          
+          var num2 = a[i]["map"][j+1]*pre;
+          num2 = Math.ceil(num2);               
+          out += num1 + ',' + num2;
+          if(j < a[i]["map"].length-1)
+              out += ',';
+          j += 2;
+      }
+      out += '" href="';
+      out += a[i]["link"];
+      out += '">';
+  }
+
+  console.log(out);
+  $("#map").html(out).trigger("mapchange");;
+}
+</script>
+</body>
+</html>

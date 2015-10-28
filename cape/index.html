@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-hans" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+a img {
+  border:none;
+}
+</style>
+<script type="text/javascript" src="libs/jquery.js" ></script>
+</head>
+<body style="margin:0;">
+<div style="position:absolute;top:93%;left:45%;font-size:15px;font-family:'宋体';font-weight:normal;color:#FFFFFF;"><p>京ICP备14058628号</p></div>
+<a id="a" href="../yaojizhan/index.html" style=""></a>
+<script type="text/javascript">
+//预处理
+(function () {
+    var i, arr;
+
+    if (!window.console) {
+        window.console = {};
+    }
+
+    // union of Chrome, FF, IE, and Safari console methods
+    arr = [
+        "log", "info", "warn", "error", "debug", "trace", "dir", "group",
+        "groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
+        "dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
+    ];
+
+    // define undefined methods as noops to prevent errors
+    for (i = 0; i < arr.length; i++) {
+
+        if (!window.console[arr[i]]) {
+            window.console[arr[i]] = function () {};
+        }
+    }
+
+    try {
+        window.$ = jQuery;
+        console.log("替换完成 $");
+    } catch (e) {
+        console.log("替换失败");
+    }
+}());
+</script>
+<script type="text/javascript">
+$(function() {
+  var width = $(window).width()-10;
+  var height = $(window).height()-10;
+  var pw = width/1920;
+  var ph = height/1081;
+  //设置外边距
+  if(pw > ph){
+      imgWidth = Math.ceil(1920*ph);
+      //console.log(width);
+      var wMar = width - imgWidth;
+      //console.log(wMar);
+      wMar = Math.ceil(wMar/2);
+      //console.log(wMar);
+      var out = '<img id="img" src="ps.jpg" width="' + imgWidth + 'px" height="' + height + 'px" style = "margin-left : ' + wMar + 'px;margin-right : ' + wMar + 'px;"/>';
+      $("#a").html(out);
+  }else{
+      imgHeight = Math.ceil(1081*pw);
+      var hMar = height - imgHeight;
+      hMar = Math.ceil(hMar/2);
+      var out = '<img id="img" src="ps.jpg" width="' + width + 'px" height="' + imgHeight + 'px" style = "margin-top : ' + hMar + 'px;margin-bottom : ' + hMar + 'px;"/>';
+      //$("#img").sytle = '<img id="img" src="ps.jpg" "margin-top : ' + hMar + ':margin-bottom : ' + hMar + ';"/>';
+      $("#a").html(out);
+  }  
+  //console.log($("#img"));
+});   
+
+$(window).resize(function(){
+  //location.reload(true);
+});
+</script>
+</body>
+</html>
