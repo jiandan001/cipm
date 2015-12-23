@@ -1,0 +1,55 @@
+#container {
+  position: relative;
+}
+.img-container {
+  position: relative;
+  /*margin: 3px 70px;*/
+  overflow: hidden;
+}
+#container .img-prev:hover, #container .img-next:hover {
+  background: #e6e6e6;
+}
+#container .img-prev:hover .img-switch-btn {
+  background-position: -46px -87px;
+}
+#container .img-next:hover .img-switch-btn {
+  background-position: -46px 0px;
+}
+#container .img-prev, #container .img-next {
+  position: absolute;
+  top: 0/*-3px*/;
+  right: 0;
+  width: 70px;
+  font-size: 40px;
+  color: #ccc;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  height: 100%;
+  -webkit-transition: background-color .2s ease-in;
+  -moz-transition: background-color .2s ease-in;
+  -ms-transition: background-color .2s ease-in;
+  -o-transition: background-color .2s ease-in;
+  transition: background-color .2s ease-in;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#container .img-prev {
+  left: 0;
+}
+#container .img-prev .img-switch-btn, #container .img-next .img-switch-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -85px 0 0 -18px;
+  width: 40px;
+  height: 72px;
+  background: url(../img/slider_btn_icon_0624374.png) no-repeat 0 0;
+}
+#container .img-prev .img-switch-btn {
+  background-position: 0 -87px;
+  margin-left: -26px;
+}
