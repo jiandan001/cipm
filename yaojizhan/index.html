@@ -156,32 +156,44 @@ $(function(){
 });
 
 // Load new map data
-function load_map_data ( a )
-{
-  var out = " ";
-  for(var i = 0 ; i < a.length; i++){
-      if(a[i]["map"].length > 4)
-          out += '<area shape="poly" coords="';
-      else
-          out += '<area shape="rect" coords="';       
-      for(var j = 0 ; j < a[i]["map"].length;){
-          var num1 = a[i]["map"][j]*pre; 
-          num1 = Math.ceil(num1);
-          
-          var num2 = a[i]["map"][j+1]*pre;
-          num2 = Math.ceil(num2);               
-          out += num1 + ',' + num2;
-          if(j < a[i]["map"].length-1)
-              out += ',';
-          j += 2;
+function load_map_data(map) {
+  var out = "", i, hotspot, coords;
+  for (i in map) {
+    hotspot = map[i];
+    coords = map[i]["map"];
+    out += '<area shape="' + _get_shape_type(coords) + '" coords="';
+
+    function _get_percentage(coords) {
+      var i = 0, size;
+      for (i in coords) {
+        size = coords[i];
+        coords[i] = _calc_client_size(size);
       }
-      out += '" href="';
-      out += a[i]["link"];
-      out += '">';
+      return coords;
+    }
+    function _calc_client_size(size) {
+      var gimp_image_map_width = 500;
+      var window_width = $(document).width();
+      return Math.floor(size * (window_width / gimp_image_map_width));
+    }
+    _get_percentage(coords);
+    out += coords.join(",");
+
+    out += '" href="';
+    out += hotspot["link"];
+    out += '">';
   }
 
   console.log(out);
   $("#map").html(out).trigger("mapchange");;
+}
+
+function _get_shape_type(coords) {
+  if(coords.length > 4) {
+    return "poly";
+  } else {
+    return "rect";       
+  }
 }
 </script>
 </body>
