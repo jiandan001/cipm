@@ -12,6 +12,31 @@ body {
 img, a img {
   border: 0;
 }
+.search-box {
+  position: fixed;
+  right: 0;
+  border: 1px solid #ccc;
+  width: 200px;
+  height: 50px;
+  z-index: 9999;
+  background-color: white;
+}
+
+  #project-label {
+    display: block;
+    font-weight: bold;
+    /*margin-bottom: 1em;*/
+  }
+  #project-icon {
+    float: left;
+    height: 32px;
+    width: 32px;
+  }
+  #project-description {
+    margin: 0;
+    padding: 0;
+  }
+
 </style>
 <script type="text/javascript">
 //预处理
@@ -47,6 +72,13 @@ img, a img {
 </script>
 </head>
 <body>
+<div class="search-box">
+  <div id="project-label">搜索展厅</div>
+  <img id="project-icon" src="images/transparent_1x1.png" class="ui-state-default" alt="" style="display: none;">
+  <input id="project">
+  <input type="hidden" id="project-id">
+  <p id="project-description"></p>
+</div>
 <div id="container" class="main-area">
   <div id="pic-show-area" class="img-container" >
     <div class="mod-pic-show">
@@ -68,6 +100,12 @@ img, a img {
 -->
 </map>
 <script type="text/javascript" src="lib/jquery.js" ></script>
+
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
+<link rel="stylesheet" href="//libs.baidu.com/jqueryui/1.8.22/themes/smoothness/jquery-ui.css">
+<script src="//libs.baidu.com/jqueryui/1.8.22/jquery-ui.min.js"></script>
+
 <script type="text/javascript" src="data.js" ></script>
 <script type="text/javascript">
 
@@ -153,6 +191,72 @@ $(function(){
     var container_margin_top = ( window_height - container_height ) / 2;
     $("#container").css("margin-top", container_margin_top + "px");
   }, 500);
+});
+
+// Search box
+$(function() {
+  var projects = [
+    {
+      value: "jquery",
+      label: "jQuery",
+      desc: "",
+      icon: "",
+      url: ""
+    },
+    {
+      value: "jquery-ui",
+      label: "jQuery UI",
+      desc: "",
+      icon: "",
+      url: ""
+    },
+    {
+      value: "北京翰林航宇",
+      label: "北京翰林航宇科技发展股份有限公司",
+      desc: "",
+      icon: "",
+      url: "../hanlinjinggongzhutiting/index.html"
+    }
+  ];
+  var i, j, item, k, keywords, projects2 = [];
+  for (i in DATA) {
+    for (j in DATA[i]) {
+      item = DATA[i][j];
+      keywords = item.keywords.split(" ");
+      for (k in keywords) {
+        projects2.push({
+          value: keywords[k],
+          label: item.name,
+          desc: "",
+          icon: "",
+          url: ""
+        });
+      }
+    }
+  }
+
+  $( "#project" ).autocomplete({
+    minLength: 0,
+    source: projects2,
+    focus: function( event, ui ) {
+      $( "#project" ).val( ui.item.label );
+      return false;
+    },
+    select: function( event, ui ) {
+      $( "#project" ).val( ui.item.label );
+      $( "#project-id" ).val( ui.item.value );
+      //$( "#project-description" ).html( ui.item.desc );
+      //$( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
+      window.location.href = ui.item.url;
+
+      return false;
+    }
+  })
+  .autocomplete( "instance" )._renderItem = function( ul, item ) {
+    return $( "<li>" )
+      .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
+      .appendTo( ul );
+  };
 });
 
 // Load new map data
