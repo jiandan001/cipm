@@ -218,20 +218,17 @@ $(function() {
       url: "../hanlinjinggongzhutiting/index.html"
     }
   ];
-  var i, j, item, k, keywords, projects2 = [];
+  var i, j, item, projects2 = [];
   for (i in DATA) {
     for (j in DATA[i]) {
       item = DATA[i][j];
-      keywords = item.keywords.split(" ");
-      for (k in keywords) {
-        projects2.push({
-          value: keywords[k],
-          label: item.name,
-          desc: "",
-          icon: "",
-          url: ""
-        });
-      }
+      projects2.push({
+        value: item.name,
+        label: item.name,
+        desc: "",
+        icon: "",
+        url: item.link
+      });
     }
   }
 
