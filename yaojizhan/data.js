@@ -21,27 +21,27 @@ DATA[0][0] = {
 DATA[0][1] = {
   "link": "../changfengjindinyiting/index.html",
   "map": [17,145,119,202],
-  "name": ""
+  "name": "北京长峰金鼎科技有限公司"
 };
 DATA[0][2] = {
   "link": "../zhoukouyaoji/index.html",
   "map": [229,73,294,109],
-  "name": ""
+  "name": "周口制药机械厂有限公司"
 };
 DATA[0][3] = {
   "link": "../hangzhouyongchuangzhinengshebei/index.html",
   "map": [227,117,300,156],
-  "name": ""
+  "name": "杭州永创智能设备股份有限公司"
 };
 DATA[0][4] = {
   "link": "../hunanqianshanzhiyaojixie/index.html",
   "map": [219,169,313,231],
-  "name": ""
+  "name": "湖南千山制药机械股份有限公司"
 };
 DATA[0][5] = {
   "link": "../dongfulongzongheting/index.html",
   "map": [335,95,482,183],
-  "name": ""
+  "name": "上海东富龙科技股份有限公司"
 };
 
 // MAP (2)
@@ -50,32 +50,32 @@ DATA[1] = [];
 DATA[1][0] = {
   "link": "../jiangsujufeng/index.html",
   "map": [80,71,172,125],
-  "name": ""
+  "name": "江苏炬峰机械有限公司"
 };
 DATA[1][1] = {
   "link": "../liaoningxiangan/index.html",
   "map": [16,134,169,214],
-  "name": ""
+  "name": "辽宁祥安制药机械有限公司"
 };
 DATA[1][2] = {
   "link": "../chutiankeji/index.html",
   "map": [218,67,307,125],
-  "name": ""
+  "name": "楚天科技股份有限公司"
 };
 DATA[1][3] = {
   "link": "../wenzhoujiade/index.html",
   "map": [212,132,347,214],
-  "name": ""
+  "name": "温州佳德包装有限公司"
 };
 DATA[1][4] = {
   "link": "../jiangyinbinjiang/index.html",
   "map": [354,69,472,144],
-  "name": ""
+  "name": "江阴滨江医疗设备有限公司"
 };
 DATA[1][5] = {
   "link": "../shanghaihuadong/index.html",
   "map": [385,153,493,212],
-  "name": ""
+  "name": "上海华东制药机械有限公司"
 };
 
 // MAP (3)
