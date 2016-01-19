@@ -345,8 +345,14 @@ function load_map_data(map) {
     out += coords.join(",");
 
     out += '" href="';
-    out += hotspot["link"];
-    out += '">';
+    out += hotspot.link + '"';
+
+    if (hotspot.xinchuangkou) {
+      out += ' target="_blank" ';
+    }
+
+    // End tag
+    out += '>';
   }
 
   console.log(out);
