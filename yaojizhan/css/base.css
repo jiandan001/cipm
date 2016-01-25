@@ -1,3 +1,8 @@
+* {
+  font: 12px/1.5 'Microsoft Yahei',tahoma,arial,'\5b8b\4f53';
+  font-weight: normal;
+}
+
 #container {
   position: relative;
 }

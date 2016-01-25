@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -31,52 +32,84 @@ img, a img {
   font-size: .8em !important;
 }
 
-  #project-label {
-    display: block;
-    font-weight: bold;
-    /*margin-bottom: 1em;*/
-  }
-  #project-icon {
-    float: left;
-    height: 32px;
-    width: 32px;
-  }
-  #project-description {
-    margin: 0;
-    padding: 0;
-  }
+/* Search box autocomplete list. */
+#project-label {
+  display: block;
+  font-weight: bold;
+  /*margin-bottom: 1em;*/
+}
+#project-icon {
+  float: left;
+  height: 32px;
+  width: 32px;
+}
+#project-description {
+  margin: 0;
+  padding: 0;
+}
 
+/* Search box style (B) */
+.search_wrap{
+  width:450px;
+  height:30px;
+  float: left;
+  margin: 25px 0 0 172px  !important;
+  margin: 28px 0 0 50px;
+}
+
+.search_input{
+  position: relative;
+  width: 212px;
+  height: 20px;
+  padding: 4px 20px 4px 28px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  background: #fff url(./images/search.gif) no-repeat 7px 6px;
+
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out 0;
+}
+
+.search_input:focus{
+  width: 250px;
+  border-color: #51a7e8;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),
+  0 0 5px rgba(81,167,232,0.5);
+}
 </style>
 <script type="text/javascript">
 //预处理
 (function () {
-    var i, arr;
+  var i, arr;
 
-    if (!window.console) {
-        window.console = {};
+  if (!window.console) {
+    window.console = {};
+  }
+
+  // union of Chrome, FF, IE, and Safari console methods
+  arr = [
+    "log", "info", "warn", "error", "debug", "trace", "dir", "group",
+    "groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
+    "dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
+  ];
+
+  // define undefined methods as noops to prevent errors
+  for (i = 0; i < arr.length; i++) {
+    if (!window.console[arr[i]]) {
+      window.console[arr[i]] = function () {};
     }
+  }
 
-    // union of Chrome, FF, IE, and Safari console methods
-    arr = [
-        "log", "info", "warn", "error", "debug", "trace", "dir", "group",
-        "groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
-        "dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
-    ];
-
-    // define undefined methods as noops to prevent errors
-    for (i = 0; i < arr.length; i++) {
-
-        if (!window.console[arr[i]]) {
-            window.console[arr[i]] = function () {};
-        }
-    }
-
-    try {
-        window.$ = jQuery;
-        console.log("替换完成 $");
-    } catch (e) {
-        console.log("替换失败");
-    }
+  try {
+    window.$ = jQuery;
+    console.log("替换完成 $");
+  } catch (e) {
+    console.log("替换失败");
+  }
 }());
 </script>
 </head>
@@ -84,53 +117,52 @@ img, a img {
 <div class="search-box">
   <!--<div id="project-label">搜索展厅</div>-->
 
-
-
-
-<div style="
-    width: 462px;
-    height: 56px;
-    background: url(images/search-box.png);
-    /* padding: 17px; */
-">
+  <!-- Search box style (A) -->
   <div style="
-    float: left;
-    height: 22px;
-    margin: 17px 0 17px 57px;
-"><input id="project" type="text" style="
-    width: 300px;
-    border: 0px;
-    height: 23px;
-"></div>
+  display: none;
+      width: 462px;
+      height: 56px;
+      background: url(images/search-box.png);
+      /* padding: 17px; */
+  ">
+    <div style="
+      float: left;
+      height: 22px;
+      margin: 17px 0 17px 57px;
+  "><input class="project" type="text" style="
+      width: 300px;
+      border: 0px;
+      height: 23px;
+  "></div>
+  
+    <div style="
+      float: left;
+      height: 34px;
+      width: 82px;
+      padding: 11px;
+  ">
+  <button class="search ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="
+      background: transparent;
+      border: 0px;
+      display: inline-block;
+      position: relative;
+      padding: 0;
+      margin-right: .1em;
+      text-decoration: none !important;
+      cursor: pointer;
+      text-align: center;zoom:1;
+      overflow: visible;
+  width:80px;
+  height:34px;
+  ">
+  </button>
+  </div>
+  </div>
 
-  <div style="
-    float: left;
-    height: 34px;
-    width: 82px;
-    padding: 11px;
-">
-<button class="search ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="
-    background: transparent;
-    border: 0px;
-    display: inline-block;
-    position: relative;
-    padding: 0;
-    margin-right: .1em;
-    text-decoration: none !important;
-    cursor: pointer;
-    text-align: center;zoom:1;
-    overflow: visible;
-width:80px;
-height:34px;
-">
-</button>
-</div>
-</div>
-
-
-
-
-
+  <!-- Search box style (B) -->
+  <div class="search_wrap">
+    <input type="text" class="search_input" placeholder="搜索" x-webkit-speech lang="zh-CN" />
+  </div>
 
   <img id="project-icon" src="images/transparent_1x1.png" class="ui-state-default" alt="" style="display: none;">
   <!--<input id="project"> <button class="search">搜索</button>-->
@@ -296,15 +328,15 @@ $(function() {
       //event.preventDefault();
     });
 
-  $( "#project" ).autocomplete({
+  $( ".search_input" ).autocomplete({
     minLength: 0,
     source: projects2,
     focus: function( event, ui ) {
-      $( "#project" ).val( ui.item.label );
+      $( ".search_input" ).val( ui.item.label );
       return false;
     },
     select: function( event, ui ) {
-      $( "#project" ).val( ui.item.label );
+      $( ".search_input" ).val( ui.item.label );
       $( "#project-id" ).val( ui.item.value );
       //$( "#project-description" ).html( ui.item.desc );
       //$( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
