@@ -230,6 +230,7 @@ $(function() {
     img.trigger("imagechange", [next_id]);
   });
 
+  // id is 0,1,2,3,...
   $(".mod-pic-show img").bind("imagechange", function (event, id) {
     console.log("[Event] Event name: imagechange");
     console.log("[Event] Change to image id: " + id);
