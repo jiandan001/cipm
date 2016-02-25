@@ -103,13 +103,6 @@ img, a img {
       window.console[arr[i]] = function () {};
     }
   }
-
-  try {
-    window.$ = jQuery;
-    console.log("替换完成 $");
-  } catch (e) {
-    console.log("替换失败");
-  }
 }());
 </script>
 </head>
@@ -172,7 +165,7 @@ img, a img {
 <div id="container" class="main-area">
   <div id="pic-show-area" class="img-container" >
     <div class="mod-pic-show">
-      <img src="0.jpg" data-id="0" width="100%" usemap="#planetmap" style="display:block;">
+      <img src="" data-id="0" width="100%" usemap="#planetmap" style="display:none;">
     </div>
   </div>
   <span class="img-prev" href="javascript:void(0);" target="_blank" hidefocus="true"  ondragstart="return false;"><span class="img-switch-btn"></span></span>
@@ -235,20 +228,18 @@ $(function() {
     console.log("[Event] Event name: imagechange");
     console.log("[Event] Change to image id: " + id);
     $(this).data("id", id);
+    window.location.hash = "#" + id;
     $(this).fadeOut(250).attr("src", id+".jpg").fadeIn(250);
+
     load_map_data( DATA[id] );
-    if ( id == 0 )
-    {
+
+    if ( id == 0 ) {
       $(".img-prev").hide();
       $(".img-next").show();
-    }
-    else if ( id == 2 )
-    {
+    } else if ( id == 2 ) {
       $(".img-prev").show();
       $(".img-next").hide();
-    }
-    else
-    {
+    } else {
       $(".img-prev").show();
       $(".img-next").show();
     }
@@ -272,8 +263,13 @@ $(function(){
 	pre = width/1366;
   console.log(width);
 
-  console.log( "Load first item of map array." );
-  $(".mod-pic-show img").attr("src", "0.jpg").trigger("imagechange", [0]);
+  var page_id = 0;
+  if (window.location.hash) {
+    page_id = window.location.hash.replace("#", "");
+    console.log("Jump to page id:" + page_id);
+  }
+  console.log( "Load one of map array." );
+  $(".mod-pic-show img").trigger("imagechange", [page_id]);
   
   // Set vertical align center.
   var t = setTimeout(function() {
